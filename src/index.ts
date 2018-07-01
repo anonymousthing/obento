@@ -4,7 +4,9 @@ import router from './router/index';
 import App from './App.vue';
 import './sass/bulma.custom.scss';
 
-Vue.use(Buefy);
+Vue.use(Buefy, {
+	defaultNoticeQueue: false
+});
 
 new Vue({
 	el: '#app',

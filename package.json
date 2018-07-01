@@ -5,6 +5,7 @@
     "buefy": "^0.6.2",
     "bulma": "^0.6.2",
     "connect-history-api-fallback": "^1.5.0",
+    "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^0.28.9",
     "express": "^4.16.2",
     "friendly-errors-webpack-plugin": "^1.6.1",
@@ -25,8 +26,12 @@
     "webpack-hot-middleware": "^2.21.0"
   },
   "scripts": {
-    "build": "webpack",
+    "build": "NODE_ENV=production webpack",
     "test": "echo \"No tests specified\" && exit 1",
-    "dev": "node dev-server.js"
+    "dev": "NODE_ENV=dev node dev-server.js"
+  },
+  "devDependencies": {
+    "vue-class-component": "^6.2.0",
+    "vue-property-decorator": "^7.0.0"
   }
 }

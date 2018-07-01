@@ -2,11 +2,13 @@ var path = require('path')
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+var CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
-  entry: ['./src/index.ts', 'webpack-hot-middleware/client'],
+  context: path.resolve(__dirname, 'src'),
+  entry: ['./index.ts'],
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
     filename: 'build.js'
   },
@@ -36,13 +38,6 @@ module.exports = {
         }
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]?[hash]'
-        }
-      },
-      {
         test: /\.scss$/,
         loader: 'style-loader!css-loader!sass-loader'
       }
@@ -52,29 +47,35 @@ module.exports = {
     extensions: ['.ts', '.js', '.vue', '.json', '.scss'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js'
-    }
+    },
+    modules: [
+      path.resolve(__dirname, 'src'),
+      'node_modules'
+    ]
   },
-  devServer: {
-    historyApiFallback: true,
-    noInfo: true
-  },
-  performance: {
-    hints: false
-  },
-  devtool: '#eval-source-map',
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
       inject: true
     }),
-    new FriendlyErrorsPlugin()
   ]
 }
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'dev') {
+  module.exports.entry = (module.exports.entry || []).concat(['webpack-hot-middleware/client'])
+  module.exports.devServer = {
+    historyApiFallback: true,
+    noInfo: true,
+    contentBase: path.resolve('static')
+  }
+  module.exports.devtool = '#eval-source-map'
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new webpack.HotModuleReplacementPlugin(),
+    new FriendlyErrorsPlugin(),
+  ])
+} else {
   module.exports.devtool = '#source-map'
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
@@ -91,6 +92,12 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
-    })
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, 'src', 'static'),
+        to: path.resolve(__dirname, 'dist', 'static')
+      }
+    ]),
   ])
 }
