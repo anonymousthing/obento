@@ -1,26 +1,26 @@
 {
-	"compilerOptions": {
-		"lib": [
-			"dom",
-			"es2015",
-			"es2017"
-		],
-		"outDir": "./build/",
-		"sourceMap": true,
-		"strict": true,
-		"module": "es6",
-		"moduleResolution": "node",
-		"target": "es5",
-		"baseUrl": ".",
-		"experimentalDecorators": true,
-		"allowJs": true,
-		"paths": {
-			"*": [
-				"src/*"
-			]
-		}
-	},
-	"include": [
-		"src/**/*"
-	]
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "outDir": "build/dist",
+    "module": "esnext",
+    "target": "es6",
+    "lib": ["es2018", "dom", "dom.iterable"],
+    "sourceMap": true,
+    "allowJs": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "rootDir": "src",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true
+  },
+  "exclude": [
+    "config",
+    "node_modules",
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "src/setupTests.ts"
+  ]
 }

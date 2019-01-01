@@ -1,0 +1,45 @@
+@import './quicksand.css';
+@value colorText from "../colors/colors.css";
+
+.base {
+  font-family: 'Quicksand', sans-serif;
+  color: colorText;
+}
+
+.title {
+  composes: base;
+  font-size: 42px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  composes: base;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.normal {
+  composes: base;
+  font-size: 14px;
+}
+
+.standard {
+  white:
+}
+
+.white {
+  color: white;
+}
+
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
